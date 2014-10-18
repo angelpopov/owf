@@ -1,0 +1,1 @@
+echo -n `date +%F.%H:%M:%S` " " ; clisp -q ~/logged.lisp
