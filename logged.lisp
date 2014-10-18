@@ -3,7 +3,7 @@
        for last in prev
      :collect
        (let ((res (handler-case
-		      (with-open-file (f (string-concat "~/temperatures/" sensor) :direction :input)
+		      (with-open-file (f (string-concat "temperatures/" sensor) :direction :input)
 			(read f nil nil))
 		    (error (e) (format nil "Error ~E" e) nil))))
 	 (cond
@@ -16,7 +16,7 @@
        for last in prev
      :collect
        (let ((res (handler-case
-		      (with-open-file (f (string-concat "~/temperatures/" sensor) :direction :input)
+		      (with-open-file (f (string-concat "temperatures/" sensor) :direction :input)
 			(read f nil nil))
 		    (error (e) (format nil "Error ~E" e) nil))))
 	 (cond
@@ -25,12 +25,12 @@
 	   (t res)))))
 
 (defun save-current(current)
-  (delete-file "~/prev.lisp")
-  (with-open-file (f "~/prev.lisp" :direction :output)
+  (delete-file "prev.lisp")
+  (with-open-file (f "prev.lisp" :direction :output)
       (format f "(defparameter *prev* '~S)" current)))
 
 (defun main()
-  (load "~/prev.lisp")
+  (load "prev.lisp")
   (let ((res (get-info *prev*)))
     (save-current res)
     (format t "~{~F ~}~%" res)))
